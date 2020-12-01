@@ -3,7 +3,7 @@ import sys
 
 
 sys.path.append("..")
-from inputreader import read_input
+from inputreader import read_input  # pylint: disable=import-error
 
 
 def part1():
