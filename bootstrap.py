@@ -32,9 +32,5 @@ def bootstrap_folder(name: str):
         pass
 
 
-def create_folder(name):
-    """Create a folder unless it exists"""
-
-
 if __name__ == "__main__":
     main()
