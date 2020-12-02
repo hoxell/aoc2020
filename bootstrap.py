@@ -27,10 +27,6 @@ def bootstrap_folder(name: str):
     dst = os.path.join(name, name + ".py")
     os.rename(src, dst)
 
-    input_file = os.path.join(name, "input.txt")
-    with open(input_file, "a"):
-        pass
-
 
 if __name__ == "__main__":
     main()
