@@ -2,3 +2,5 @@ input.txt
 .vscode
 __pycache__
 venv
+
+*_alternative/
