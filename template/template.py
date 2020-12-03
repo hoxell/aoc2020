@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+import os
 import sys
 from typing import Any, Generator
 
 
-sys.path.append("..")
+file_dir = os.path.dirname(__file__)
+sys.path.append(os.path.join(file_dir, ".."))
 from inputreader import read_input  # pylint: disable=import-error
 
 
