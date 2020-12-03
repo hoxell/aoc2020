@@ -22,9 +22,12 @@ def get_arguments() -> argparse.Namespace:
 
 def bootstrap_folder(name: str):
     """Bootstrap a folder from the template if the folder doesn't exist"""
-    shutil.copytree("template", name, dirs_exist_ok=False)
-    src = os.path.join(name, "template.py")
-    dst = os.path.join(name, name + ".py")
+    parent_dir = os.path.dirname(__file__)
+    template_dir = os.path.join(parent_dir, "template")
+    dst_dir = os.path.join(parent_dir, name)
+    shutil.copytree(template_dir, dst_dir, dirs_exist_ok=False)
+    src = os.path.join(dst_dir, "template.py")
+    dst = os.path.join(dst_dir, name + ".py")
     os.rename(src, dst)
 
 
