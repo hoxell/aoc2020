@@ -8,16 +8,16 @@ import shutil
 def main():
     """Entry point for script"""
     args = get_arguments()
-    folder_name = "day" + str(args.DayNumber)
+    folder_name = "day" + str(args.DayOfMonth)
     scaffold_folder(folder_name)
 
 
 def get_arguments() -> argparse.Namespace:
     """Gets the cli arguments"""
     parser = argparse.ArgumentParser(
-        description="Bootstrap a new day based on template"
+        description="Scaffold a new day from template"
     )
-    parser.add_argument("DayNumber", type=int)
+    parser.add_argument("DayOfMonth", type=int)
 
     return parser.parse_args()
 
