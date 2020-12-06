@@ -4,7 +4,7 @@
 # [![](https://adventofcode.com/favicon.png) Advent of code](https://adventofcode.com)
 My solutions to [Advent of Code](https://adventofcode.com/)
 
-## Utils, templates and scaffolding
+## Scaffolding
 This repo also contains some functionality to scaffold the files needed to solve the problems. Use like so,
 
 ```sh
