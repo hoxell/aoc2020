@@ -9,7 +9,7 @@ def main():
     """Entry point for script"""
     args = get_arguments()
     folder_name = "day" + str(args.DayNumber)
-    bootstrap_folder(folder_name)
+    scaffold_folder(folder_name)
 
 
 def get_arguments() -> argparse.Namespace:
@@ -22,8 +22,8 @@ def get_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def bootstrap_folder(name: str):
-    """Bootstrap a folder from the template if the folder doesn't exist"""
+def scaffold_folder(name: str):
+    """Create a new folder from the template if the folder doesn't exist"""
     parent_dir = os.path.dirname(__file__)
     template_dir = os.path.join(parent_dir, "template")
     dst_dir = os.path.join(parent_dir, name)
