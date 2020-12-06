@@ -1,4 +1,4 @@
-name: Python app
+name: Python
 
 on:
   push:
