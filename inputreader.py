@@ -25,6 +25,6 @@ def read_input(
     any
         Each line transformed by `transform_function`
     """
-    with open(filepath) as fh:
-        for line in fh:
+    with open(filepath) as file_handle:
+        for line in file_handle:
             yield transform_function(line.replace("\r\n", "\n"))
