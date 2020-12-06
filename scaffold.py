@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+"""Create a new directory with the structure typically used for a day"""
 import argparse
 import os
 import shutil
 
 
 def main():
+    """Entry point for script"""
     args = get_arguments()
     folder_name = "day" + str(args.DayNumber)
     bootstrap_folder(folder_name)
