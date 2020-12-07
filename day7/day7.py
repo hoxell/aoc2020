@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 from collections import defaultdict
-from queue import Queue
 import os
-import sys
+from queue import Queue
 import re
-from typing import Any, Generator
+import sys
+from typing import Any, Dict, Generator, Tuple
 
 
 file_dir = os.path.dirname(__file__)
@@ -15,13 +15,14 @@ from inputreader import read_input  # pylint: disable=import-error
 def main():
     lines = read_input(transform_function=transform_function)
     data = format_input(lines)
-
-    print(f"part1: {part1(data)}")
-    print(f"part2: {part2(data)}")
+    solve(data)
 
 
 def transform_function(line):
-    return transform_function.reg.findall(line)
+    matches = transform_function.reg.findall(line)
+    for i, match in enumerate(matches[1:]):
+        matches[i + 1] = int(match[0]), match[1]
+    return matches
 
 
 # Workaround so that it doesn't get compiled for each line
@@ -35,48 +36,37 @@ def format_input(lines: Generator[Any, None, None]) -> Any:
     return tuple(lines)
 
 
-def part1(data):
-    d = defaultdict(set)
+def num_bags(children: Dict[str, Tuple[int, str]], color: str, count: int):
+    total = 1  # Count the bag itself
+    for child_count, child_color in children[color]:
+        total += num_bags(children, child_color, child_count)
+    return count * total
+
+
+def solve(data, color: str = "shiny gold"):
+    parents = defaultdict(set)
+    children = defaultdict(set)
     for line in data:
-        containing_color = line[0][1]
-        for f in line[1:]:
-            c = f[1]
-            d[c].add(containing_color)
+        parent_color = line[0][1]
+        for child in line[1:]:
+            count, child_color = child
+            parents[child_color].add(parent_color)
+            children[parent_color].add((count, child_color))
 
-    checked = set()
-    valid = set()
-    q = Queue()
-    for color in d["shiny gold"]:
-        q.put(color)
-        valid.add(color)
+    candidates = set()
+    queue = Queue()
+    for parent in parents[color]:
+        queue.put(parent)
+        candidates.add(parent)
 
-    while not q.empty():
-        c = q.get()
-        for color in d[c]:
-            if color not in checked:
-                checked.add(color)
-                valid.add(color)
-                q.put(color)
-    print(len(valid))
+    while not queue.empty():
+        child_color = queue.get()
+        for parent in parents[child_color]:
+            candidates.add(parent)
+            queue.put(parent)
 
-
-def part2(data):
-    d = defaultdict(set)
-    for line in data:
-        # found = reg.findall(line)
-        containing_color = line[0][1]
-        for f in line[1:]:
-            count, c = f
-            count = int(count)
-            d[containing_color].add((count, c))
-
-    def num_bags(d, key, multiple):
-        s = 1  # Count the bag themselves
-        for count, color in d[key]:
-            s += num_bags(d, color, count)
-        return multiple * s
-
-    print(num_bags(d, "shiny gold", 1) - 1)  # Subtract the gold bag itself
+    print(f"Part 1: {len(candidates)}")
+    print(f"Part 2: {num_bags(children, color, 1) - 1}")
 
 
 if __name__ == "__main__":
