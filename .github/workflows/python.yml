@@ -26,8 +26,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Flake8 linting
       run: |
-        flake8 . --exclude=venv/ --count --select=E9,F63,F7,F82 --ignore=E203,402 --show-source --statistics
-        flake8 . --exclude=venv/ --count --exit-zero --max-complexity=10 --ignore=E203,E402 --statistics
+        flake8 . --exclude=venv/ --count --max-complexity=10 --ignore=E203,E402,W503 --show-source --statistics
     - name: Black code matters
       run: |
         black . --check --line-length 79
