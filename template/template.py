@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import re
 import sys
 from typing import Any, Generator
 
@@ -12,9 +13,8 @@ from inputreader import read_input  # pylint: disable=import-error
 def main():
     lines = read_input(transform_function=transform_function)
     data = format_input(lines)
-
-    print(f"part1: {part1(data)}")
-    print(f"part2: {part2(data)}")
+    print(data)
+    solve(data)
 
 
 def transform_function(line):
@@ -26,12 +26,9 @@ def format_input(lines: Generator[Any, None, None]) -> Any:
     return tuple(lines)
 
 
-def part1(data):
-    pass
-
-
-def part2(data):
-    pass
+def solve(data):
+    print(f"Part 1: {None}")
+    print(f"Part 2: {None}")
 
 
 if __name__ == "__main__":
