@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import functools
-import numpy as np
 import os
 import sys
 import time
@@ -24,37 +22,35 @@ def transform_function(line):
 
 def format_input(lines: Generator[Any, None, None]) -> Any:
     """Format the lines into the expected data format"""
-    array = np.fromiter(lines, dtype=np.int)
-    array = np.insert(array, 0, 0)
-    array = np.append(array, max(array) + 3)
-    return array
+    return list(lines)
 
 
 def solve(data):
     t0 = time.time()
-    sorted_array = np.sort(data)
-    diff = np.diff(sorted_array)
-    ones = np.count_nonzero(diff == 1)
-    three = np.count_nonzero(diff == 3)
-
-    print(f"Part 1: {(ones)*(three)}, time: {(time.time() - t0)*1e6:.5}µs")
-
-    @functools.lru_cache(maxsize=len(sorted_array))
-    def n_paths(idx):
-        num_paths = 0
-        val = sorted_array[idx]
-        for i in range(idx + 1, idx + 4):
-            try:
-                if sorted_array[i] - val <= 3:
-                    num_paths += n_paths(i)
-                else:
-                    break
-            except IndexError:
-                pass
-        return max(num_paths, 1)
+    sorted_array = sorted(data)
+    ones = 0
+    threes = 0
+    for a, b in zip(sorted_array[1:], sorted_array):
+        if a - b == 1:
+            ones += 1
+        elif a - b == 3:
+            threes += 1
+    print(f"Part 1: {ones*threes}, time: {(time.time() - t0)*1e6:.5}µs")
 
     t0 = time.time()
-    print(f"Part 2: {n_paths(0)}, time: {(time.time() - t0)*1e6:.5}µs")
+    num_paths = [0] * len(sorted_array)
+    num_paths[0] = 1
+    max_idx = len(sorted_array)
+    offsets = [1, 2, 3]
+    for idx in range(len(sorted_array)):
+        for i in offsets:
+            if (
+                i + idx < max_idx
+                and sorted_array[i + idx] - sorted_array[idx] < 4
+            ):
+                num_paths[i + idx] += num_paths[idx]
+    time_taken = time.time() - t0
+    print(f"Part 2: {num_paths[-1]}, time: {(time_taken)*1e6:.5}µs")
 
 
 if __name__ == "__main__":
