@@ -28,3 +28,8 @@ jobs:
       - name: CMake build
         working-directory: ${{ github.workspace }}/cpp/build
         run: cmake --build .
+
+      # Should be separate job, but will do for now
+      - name: Test
+        working-directory: ${{ github.workspace }}/cpp/build
+        run: ctest
