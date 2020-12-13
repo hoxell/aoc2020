@@ -1,15 +1,17 @@
 cmake_minimum_required(VERSION 3.19)
 
-FILE(GLOB ${PROJECT_NAME}_TEST_SOURCES CONFIGURE_DEPENDS
+file(GLOB ${PROJECT_NAME}_TEST_SOURCES CONFIGURE_DEPENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/ioutils/*.cpp
 )
 
-ADD_EXECUTABLE(${PROJECT_NAME}_tests
+add_executable(${PROJECT_NAME}_tests
     ${${PROJECT_NAME}_TEST_SOURCES}
-    ${${PROJECT_NAME}_TEST_HEADERS}
 )
 
-TARGET_LINK_LIBRARIES(${PROJECT_NAME}_tests
+target_link_libraries(${PROJECT_NAME}_tests
     ioutils
     gtest_main
 )
+
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_NAME}_tests)
