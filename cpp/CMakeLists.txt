@@ -7,10 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 enable_testing()
 
-add_library(ioutils INTERFACE)
-target_include_directories(ioutils INTERFACE ioutils)
-
-ADD_SUBDIRECTORY(tests)
+add_subdirectory(ioutils)
+add_subdirectory(tests)
 
 # ===== gtest setup =====
 # Download and unpack googletest at configure time
