@@ -10,6 +10,8 @@ enable_testing()
 add_subdirectory(ioutils)
 add_subdirectory(tests)
 
+add_subdirectory(day15)
+
 # ===== gtest setup =====
 # Download and unpack googletest at configure time
 configure_file(googletest.txt.in googletest-download/CMakeLists.txt)
