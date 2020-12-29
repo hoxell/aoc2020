@@ -12,6 +12,7 @@ add_subdirectory(tests)
 
 add_subdirectory(day14)
 add_subdirectory(day15)
+add_subdirectory(day17)
 add_subdirectory(day22)
 
 # ===== gtest setup =====
