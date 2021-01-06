@@ -16,6 +16,7 @@ add_subdirectory(day17)
 add_subdirectory(day18)
 add_subdirectory(day19)
 add_subdirectory(day22)
+add_subdirectory(day23)
 
 # ===== gtest setup =====
 # Download and unpack googletest at configure time
